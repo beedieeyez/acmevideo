@@ -7,12 +7,14 @@ services:
         dockerfile: Dockerfile
         args:
           buildno: 1
+      deploy:
+          replicas: 1
       image: acmedb:latest
       hostname: acmedb 
       ports:
          - 5432/tcp
       networks:
-         - frontend 
+         - backend 
       
 
 
@@ -23,6 +25,9 @@ services:
         args:
           buildno:  
           image: acmeui:latest
+     deploy:
+        replicas: 5 
+        endpoint_mode: vip
      depends_on:
          - acmeapi
          - acmedb
@@ -40,20 +45,40 @@ services:
         context: ./api
         dockerfile: Dockerfile
         args:
-          buildno: 1 
+          buildno: 5 
           image: acmeapi:latest
+     deploy:
+          replicas: 5 
+          endpoint_mode: vip
      depends_on:
          - acmedb
      image: acme_acmeapi:latest
-     #environment:
-     #- SERVICE_PORTS=9099
+     environment:
+     - SERVICE_PORTS=9099
      ports:
-         - 9099:9099/tcp
+         - 9099/tcp
      networks:
-         - frontend 
+         - backend
      links:
          - acmedb
          
+  acmeproxy:
+     image: dockercloud/haproxy
+     depends_on:
+        - acmeapi 
+     environment:
+        - BALANCE=leastconn
+     volumes:
+        - ./proxy/var/run/docker.sock:/var/run/docker.sock
+     ports:
+        - 8011:8011
+        - 80:80
+     networks:
+        - frontend 
+        - backend 
+     deploy:
+        placement:
+         constraints: [node.role == manager]
 
 networks:
    frontend:
