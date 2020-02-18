@@ -1,0 +1,8 @@
+$("button").click(function(){
+  $.get("http://localhost:9090/api/", function(data, status){
+    var decodedString = Base64.decode(data);
+    var obj = JSON.stringify(decodedString);  
+    var changeObj = JSON.parse(obj)
+     $("#queryResults").text(changeObj.fname);
+  });
+}); 

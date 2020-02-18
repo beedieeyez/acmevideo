@@ -1,0 +1,63 @@
+version: '3.3'
+services:
+
+  acmedb:
+      build:
+        context: ./db
+        dockerfile: Dockerfile
+        args:
+          buildno: 1
+      image: acmedb:latest
+      hostname: acmedb 
+      ports:
+         - 5432/tcp
+      networks:
+         - frontend 
+      
+
+
+  acmeui:
+     build:
+        context: ./ui
+        dockerfile: Dockerfile
+        args:
+          buildno:  
+          image: acmeui:latest
+     depends_on:
+         - acmeapi
+         - acmedb
+     image: acme_acmeui:latest
+
+     ports:
+         - 443:8000/tcp
+     networks:
+         - frontend  
+     links:
+         - acmeapi
+ 
+  acmeapi:
+     build:
+        context: ./api
+        dockerfile: Dockerfile
+        args:
+          buildno: 1 
+          image: acmeapi:latest
+     depends_on:
+         - acmedb
+     image: acme_acmeapi:latest
+     #environment:
+     #- SERVICE_PORTS=9099
+     ports:
+         - 9099:9099/tcp
+     networks:
+         - frontend 
+     links:
+         - acmedb
+         
+
+networks:
+   frontend:
+    driver: "bridge"
+   backend:
+    driver: "bridge"
+    internal: true

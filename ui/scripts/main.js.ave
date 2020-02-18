@@ -1,0 +1,33 @@
+var resultsContainer = document.getElementById("queryResults");
+var btn = document.getElementById("btn1");
+
+btn.addEventListener("click", function() {
+  var ourRequest = new XMLHttpRequest();
+
+  ourRequest.open('GET', 'https://httpbin.org/get',true);
+  ourRequest.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  ourRequest.onload = function() {
+
+    if (ourRequest.status >= 200 && ourRequest.status < 400) {
+
+      var ourData = JSON.parse(ourRequest.responseText);
+
+      renderHTML(ourData);
+
+
+    };
+
+
+
+  ourRequest.send();
+   } 
+
+  }
+
+  );
+
+
+function renderHTML(data) {
+  resultsContainer.insertAdjacentHTML('beforeend', '123');
+}
