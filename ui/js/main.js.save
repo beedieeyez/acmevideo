@@ -32,7 +32,7 @@ changeObj=[];
               urlAdd["lname"]=$("#lname").val().trim();
               var encodedString="";
               var encodedString = btoa(JSON.stringify(urlAdd));
-              var fullUrl = "https://ui.acme.com:9099/api/"+"?" + encodedString;
+              var fullUrl = "https://www.acme.com:9099/api/"+"?" + encodedString;
 
                        apiData= getRemote(fullUrl);
                        apiDataJSON=atob(apiData);
