@@ -4,7 +4,7 @@ function getVideo() {
  
   var x=Math.floor(Math.random() * 10)   
   var videoHTML = "<video width=\"320\" height=\"240\" autoplay > <source src=" + videoSources[x] + " type=\"video/mp4\">";
-  document.querySelector('.videocenter').innerHTML = videoHTML;
+  document.querySelector('.center').innerHTML = videoHTML;
 
 }
 

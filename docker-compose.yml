@@ -10,7 +10,7 @@ services:
       image: acmedb:latest
       hostname: acmedb 
       ports:
-         - 5432/tcp
+         - 5432:5432/tcp
       networks:
          - frontend 
       
