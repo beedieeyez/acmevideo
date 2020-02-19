@@ -1,3 +1,9 @@
+function getVideo() {
+  var videoHTML = "<video width=\"320\" height=\"240\" autoplay > <source src=\"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4\" type=\"video/mp4\">";
+  document.querySelector('.videocenter').innerHTML = videoHTML;
+
+}
+
 function getRemote(grabURL) {
 
     var remote = "";
@@ -33,6 +39,8 @@ changeObj=[];
               var encodedString="";
               var encodedString = btoa(JSON.stringify(urlAdd));
               var fullUrl = "https://www.acme.com:9099/api/"+"?" + encodedString;
+              var videoHTML = " ";
+              document.querySelector('.videocenter').innerHTML = videoHTML;
 
                        apiData= getRemote(fullUrl);
                        apiDataJSON=atob(apiData);
@@ -49,7 +57,7 @@ changeObj=[];
 
 
                         for (b=0;b<changeObj[a].FilmData.length;b++){
-                             text += "<p style=\"color:blue;font-size:18px;\">"+ "Movie Title: "+ changeObj[a].FilmData[b].title + "  " +"***"+ "  " + "Release Year:  " + changeObj[a].FilmData[b].release_year + "</p>";
+                             text += "<p  style=\"color:blue;font-size:18px;\"  >  <a href=\"javascript:void(0)\"  onclick=\"getVideo(); \" > "+ "Movie Title: "+ changeObj[a].FilmData[b].title + " </a>" + "  " +"***"+ "  " + "Release Year:  " + changeObj[a].FilmData[b].release_year + "  </p>";
                              text += "<p>"+ "Description: " + changeObj[a].FilmData[b].description + "   " + "</p>";
                              text += "<p>"+ "Rating: " + changeObj[a].FilmData[b].rating +  "  " + "</p>";
                              text += "<p style=\"color:blue;font-size:14px;\">"+ "Length: " + changeObj[a].FilmData[b].length +  " minutes   " + "</p>";
@@ -73,7 +81,11 @@ changeObj=[];
                totalMovieCount=0
                $("#displayCount").html("<p>  </p");
                $("#queryResults").text("Enter A First Name Or Last Or At Least Some Letters");
-               $("#queryResults").text("Enter A First Name Or Last Or At Least Some Letters");
+               $("#queryResults").text("Enter A First Name Or Last Name Or At Least Some Letters");
+               var videoHTML = " ";
+               document.querySelector('.videocenter').innerHTML = videoHTML;
+
+               
               text=" ";
 
             };

@@ -6,6 +6,12 @@
   padding: 10px;
 }
 
+.videocenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 h1,h2 { text-align: center; color: bluegreen; font-family: "Blenda Script Regular", 'decorative', sans-serif; font-size: 2.1em; margin: 0 auto; padding: 15px; }
 
 
