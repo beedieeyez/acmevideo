@@ -53,6 +53,25 @@ services:
          - frontend 
      links:
          - acmedb
+
+  docker-nagios:
+     build:
+        context: ./docker-nagios
+        dockerfile: Dockerfile
+        args:
+          buildno: 1 
+          image: docker-nagios:latest
+     depends_on:
+         - acmedb
+     image: docker_nagios:latest
+     #environment:
+     #- SERVICE_PORTS=9099
+     ports:
+         - 8011:8011/tcp
+     networks:
+         - frontend 
+     links:
+         - acmedb
          
 
 networks:
